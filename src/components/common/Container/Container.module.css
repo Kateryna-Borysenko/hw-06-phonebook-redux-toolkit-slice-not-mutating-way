@@ -1,0 +1,35 @@
+.container {
+  width: 100%;
+  padding: 50px 15px;
+  box-sizing: border-box;
+}
+@media screen and (min-width: 480px) {
+  .container {
+    margin: 0 auto;
+    min-height: 590px;
+    padding: 50px 80px;
+    box-sizing: border-box;
+  }
+}
+@media screen and (min-width: 620px) {
+  .container {
+    width: 520px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 700px;
+    margin: 50px auto;
+
+    padding: 50px 20px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .container {
+    width: 1000px;
+    padding: 50px 100px;
+  }
+}

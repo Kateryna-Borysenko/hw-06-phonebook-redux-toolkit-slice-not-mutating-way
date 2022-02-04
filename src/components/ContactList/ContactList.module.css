@@ -1,0 +1,46 @@
+.contactList {
+  padding: 0;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .contactList {
+    width: 95%;
+  }
+  .contactListItem {
+    width: 100%;
+  }
+}
+
+.contactListItem {
+  padding: 15px;
+  box-sizing: border-box;
+  list-style: none;
+  border-radius: 5px;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.deleteBtn {
+  width: 120px;
+  height: 49px;
+  font-size: 16px;
+  line-height: 26px;
+  color: #fff;
+  background-color: #007188;
+  border-radius: 5px;
+  border: inherit;
+  box-sizing: border-box;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 1px rgb(0 0 0 / 14%);
+  margin: auto 10px auto;
+}
+
+.lightContactTitle {
+  margin: 0;
+}
+
+.darkContactTitle {
+  margin: 0;
+  color: #fff;
+}

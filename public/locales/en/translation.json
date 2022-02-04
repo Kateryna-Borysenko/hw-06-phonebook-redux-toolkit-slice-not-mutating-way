@@ -1,0 +1,24 @@
+{
+  "app": {
+    "title": "Phonebook",
+    "subtitle": "Contacts:",
+    "message": "There are not contacts yet"
+  },
+  "contactForm": {
+    "name": "Name:",
+    "placeholderName": "example: Borysenko Kateryna",
+    "number": "Number:",
+    "placeholderNumber": "example: +38(099)205-33-33",
+    "btn": "Add Contact"
+  },
+  "contactList": {
+    "btn": "Delete"
+  },
+  "filter": {
+    "message": "Find contacts by name",
+    "placeholder": "example: Nina"
+  },
+  "toast": {
+    "isInContacts": "This name is already on your list!"
+  }
+}
