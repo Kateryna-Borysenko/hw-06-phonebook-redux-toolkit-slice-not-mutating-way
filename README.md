@@ -1,6 +1,6 @@
 ### Phonebook on React
 
-createSlice() - not mutating way
+createSlice()
 
  <img src="./src/images/screen.png" width="900">
 
