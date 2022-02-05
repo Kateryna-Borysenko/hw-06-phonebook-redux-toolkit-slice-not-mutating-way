@@ -5,7 +5,7 @@ import { ThemeContext, themes } from 'context/themeContext';
 import s from './Filter.module.css';
 import { useTranslation } from 'react-i18next';
 
-const Filter = ({ value, onChange }) => {
+const Filter = ({ value, onChange, onReset, contacts}) => {
   const { theme } = useContext(ThemeContext);
 
   const inputRef = useRef(null);
@@ -15,6 +15,14 @@ const Filter = ({ value, onChange }) => {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
+
+  // useEffect(() => {
+  //  const filteredContacts = storage.get(STORAGE_KEY) ?? ''
+
+  //   if (filteredContacts.length === 0) {//считать с locals
+  //     onReset('')
+  //   }
+  // }, [onReset]);
 
   return (
     <div>
@@ -35,6 +43,7 @@ const Filter = ({ value, onChange }) => {
           name="filter"
           value={value}
           onChange={onChange}
+          onReset={onReset}         
           placeholder={t('filter.placeholder')}
         />
       </label>
@@ -44,9 +53,11 @@ const Filter = ({ value, onChange }) => {
 
 const mapStateToProps = state => ({
   value: state.contacts.filter,
+  contacts: state.contacts
 });
 
 const mapDispatchToProps = dispatch => ({
   onChange: e => dispatch(contactsActions.changeFilter(e.target.value)),
+  onReset: value => dispatch(contactsActions.resetFilter(value)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

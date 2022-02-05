@@ -20,15 +20,16 @@ const filterSlice = createSlice({
     name: 'filter',
     initialState: '',
     reducers: {
-        changeFilter: (_, { payload }) => payload,
-    },
+        changeFilter: (_, { payload }) => payload, 
+        resetFilter: (state, { payload }) => {
+            return state.filter = payload; //очистка
+        }
+    }
 })
+
 export const { addContact, deleteContact } = itemsSlice.actions;
+export const { changeFilter, resetFilter } = filterSlice.actions; 
 
-export const { changeFilter } = filterSlice.actions;
-
-// console.log(itemsSlice);
-// console.log(itemsSlice.actions);
 
 const contactsReducer = combineReducers({
     [itemsSlice.name]: itemsSlice.reducer,
