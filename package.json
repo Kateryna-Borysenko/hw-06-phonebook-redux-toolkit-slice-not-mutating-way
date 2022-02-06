@@ -1,5 +1,5 @@
 {
-  "name": "goit-react-hw-06-phonebook-redux-toolkit",
+  "name": "hw-06-phonebook-redux-toolkit-slice-not-mutating-way",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
