@@ -1,19 +1,30 @@
-import { connect } from 'react-redux';
+import { useContext, useMemo} from 'react';
+import { useSelector, useDispatch} from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { contactsActions } from 'redux/contacts';
 import s from './ContactList.module.css';
 import Paper from 'components/common/Paper/Paper';
-import { useContext} from 'react';
 import { ThemeContext, themes } from 'context/themeContext';
-import { useTranslation } from 'react-i18next';
 
-const ContactList = ({ contacts, onDelete }) => {
+const ContactList = () => {
+  const contacts = useSelector(state => state.contacts.items); 
+  const filter = useSelector(state => state.contacts.filter); 
+  const dispatch = useDispatch();
+  
   const { theme } = useContext(ThemeContext);
   
   const { t } = useTranslation();
 
+  const filteredContacts = useMemo(() => {
+    
+  return contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()),
+    );
+
+  },[contacts, filter]);
+
   return (
     <ul className={s.contactList}>
-      {contacts.map(({ id, name, number }) => (
+      {filteredContacts.map(({ id, name, number }) => (
         <Paper key={id}>
           <li className={s.contactListItem}>
             <p
@@ -38,7 +49,7 @@ const ContactList = ({ contacts, onDelete }) => {
           <button
             type="button"
             className={s.deleteBtn}
-            onClick={() => onDelete(id)} 
+            onClick={()=> dispatch(contactsActions.deleteContact(id))} 
           >
             {t('contactList.btn')}
           </button>
@@ -48,30 +59,4 @@ const ContactList = ({ contacts, onDelete }) => {
   );
 };
 
-const onFilterChange = (contacts, filterValue) => {
-
-  console.log(contacts);
-  console.log(filterValue);
-
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filterValue.toLowerCase()),
-    );
-   
-  if (filteredContacts.length){
-    return filteredContacts;
-  } else {
-  
-    return contacts; 
-  }
-};
-
-const mapStateToProps = ({ contacts: { items, filter } }) => ({
-  contacts: onFilterChange(items, filter), 
-});
-
-const mapDispatchToProps = dispatch => ({
-  onDelete: id => dispatch(contactsActions.deleteContact(id)),
- 
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+export default ContactList;

@@ -5,7 +5,7 @@ import { ThemeContext, themes } from 'context/themeContext';
 import { useTranslation } from 'react-i18next';
 import s from './Filter.module.css';
 
-const Filter = ({ value, onChange}) => {
+const Filter = () => {
   const filter = useSelector(state => state.contacts.filter);
   const dispatch = useDispatch();
 

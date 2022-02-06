@@ -1,5 +1,5 @@
-import { useState, useContext } from 'react';
-import { connect } from 'react-redux';
+import { useState, useContext} from 'react';
+import { useDispatch } from 'react-redux'; 
 import { contactsActions } from 'redux/contacts';
 import s from './ContactForm.module.css';
 import { ThemeContext, themes } from 'context/themeContext';
@@ -7,7 +7,8 @@ import { nanoid } from '@reduxjs/toolkit';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-const ContactForm = ({ contacts, onSubmitForm }) => {
+const ContactForm = ({ contacts }) => {
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -35,7 +36,6 @@ const ContactForm = ({ contacts, onSubmitForm }) => {
   const onSubmit = e => {
     e.preventDefault();
 
-    //проверка если контакт в телефной книге
     const isInContacts = contacts => contacts.name === name;
     if (contacts.some(isInContacts)) {
       toast.warn(`${t('toast.isInContacts')}`, {
@@ -44,11 +44,8 @@ const ContactForm = ({ contacts, onSubmitForm }) => {
       return;
     }
 
-    onSubmitForm({
-      id: nanoid(),
-      name,
-      number,
-    });
+    dispatch(contactsActions.addContact({ name, number, id: nanoid(3) }));
+
     reset();
   };
 
@@ -100,8 +97,5 @@ const ContactForm = ({ contacts, onSubmitForm }) => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  onSubmitForm: ({ name, number, id }) =>
-    dispatch(contactsActions.addContact({ name, number, id })),
-});
-export default connect(null, mapDispatchToProps)(ContactForm);
+
+export default ContactForm
