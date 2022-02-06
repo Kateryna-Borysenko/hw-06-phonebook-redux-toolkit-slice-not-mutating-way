@@ -50,6 +50,9 @@ const ContactList = ({ contacts, onDelete }) => {
 
 const onFilterChange = (contacts, filterValue) => {
 
+  console.log(contacts);
+  console.log(filterValue);
+
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filterValue.toLowerCase()),
     );
@@ -57,16 +60,18 @@ const onFilterChange = (contacts, filterValue) => {
   if (filteredContacts.length){
     return filteredContacts;
   } else {
+  
     return contacts; 
   }
 };
 
 const mapStateToProps = ({ contacts: { items, filter } }) => ({
-  contacts: onFilterChange(items, filter),
+  contacts: onFilterChange(items, filter), 
 });
 
 const mapDispatchToProps = dispatch => ({
   onDelete: id => dispatch(contactsActions.deleteContact(id)),
+ 
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);

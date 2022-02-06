@@ -22,7 +22,7 @@ const filterSlice = createSlice({
     reducers: {
         changeFilter: (_, { payload }) => payload, 
         resetFilter: (state, { payload }) => {
-            return state.filter = payload; //очистка
+            return state.filter = payload; 
         }
     }
 })

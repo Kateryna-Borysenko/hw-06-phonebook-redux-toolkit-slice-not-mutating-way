@@ -1,11 +1,14 @@
 import { useEffect, useRef, useContext } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux'; 
 import { contactsActions } from 'redux/contacts';
 import { ThemeContext, themes } from 'context/themeContext';
-import s from './Filter.module.css';
 import { useTranslation } from 'react-i18next';
+import s from './Filter.module.css';
 
-const Filter = ({ value, onChange, onReset, contacts}) => {
+const Filter = ({ value, onChange}) => {
+  const filter = useSelector(state => state.contacts.filter);
+  const dispatch = useDispatch();
+
   const { theme } = useContext(ThemeContext);
 
   const inputRef = useRef(null);
@@ -15,15 +18,7 @@ const Filter = ({ value, onChange, onReset, contacts}) => {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-
-  // useEffect(() => {
-  //  const filteredContacts = storage.get(STORAGE_KEY) ?? ''
-
-  //   if (filteredContacts.length === 0) {//считать с locals
-  //     onReset('')
-  //   }
-  // }, [onReset]);
-
+  
   return (
     <div>
       <label className={s.label}>
@@ -41,9 +36,8 @@ const Filter = ({ value, onChange, onReset, contacts}) => {
           }
           type="text"
           name="filter"
-          value={value}
-          onChange={onChange}
-          onReset={onReset}         
+          value={filter}
+          onChange={e => dispatch(contactsActions.changeFilter(e.target.value))}     
           placeholder={t('filter.placeholder')}
         />
       </label>
@@ -51,13 +45,4 @@ const Filter = ({ value, onChange, onReset, contacts}) => {
   );
 };
 
-const mapStateToProps = state => ({
-  value: state.contacts.filter,
-  contacts: state.contacts
-});
-
-const mapDispatchToProps = dispatch => ({
-  onChange: e => dispatch(contactsActions.changeFilter(e.target.value)),
-  onReset: value => dispatch(contactsActions.resetFilter(value)),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+export default Filter;
