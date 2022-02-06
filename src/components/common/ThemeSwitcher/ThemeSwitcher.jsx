@@ -3,7 +3,7 @@ import { ThemeContext, themes } from 'context/themeContext';
 import s from './ThemeSwitcher.module.css';
 
 const ThemeSwitcher = () => {
-  const { theme, toggleTheme } = useContext(ThemeContext); //{}
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
     <div className={s.container}>

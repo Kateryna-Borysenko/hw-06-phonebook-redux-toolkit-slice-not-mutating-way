@@ -1,14 +1,16 @@
 import { useState, useContext} from 'react';
-import { useDispatch } from 'react-redux'; 
-import { contactsActions } from 'redux/contacts';
-import s from './ContactForm.module.css';
-import { ThemeContext, themes } from 'context/themeContext';
+import { useSelector, useDispatch } from 'react-redux'; 
 import { nanoid } from '@reduxjs/toolkit';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { ThemeContext, themes } from 'context/themeContext';
+import { contactsActions } from 'redux/contacts';
+import s from './ContactForm.module.css';
 
-const ContactForm = ({ contacts }) => {
+const ContactForm = () => {
+  const contacts = useSelector(state => state.contacts.items);
   const dispatch = useDispatch();
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 

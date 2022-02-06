@@ -1,22 +1,24 @@
 import { useState, useEffect } from 'react';
-import ContactForm from 'components/ContactForm/ContactForm';
-import ContactList from 'components/ContactList/ContactList';
-import Filter from 'components/Filter/Filter';
+import { useSelector } from 'react-redux';
+import { ThemeContext, themes } from 'context/themeContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useTranslation } from 'react-i18next';
 import * as storage from 'services/localStorage';
 import image from 'images/image.jpg';
 import s from './App.module.css';
+import ContactForm from 'components/ContactForm/ContactForm';
+import ContactList from 'components/ContactList/ContactList';
+import Filter from 'components/Filter/Filter';
 import Container from 'components/common/Container/Container';
-import { ThemeContext, themes } from 'context/themeContext';
-import ThemeSwitcher from 'components/ThemeSwitcher/ThemeSwitcher';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { connect } from 'react-redux';
+import ThemeSwitcher from 'components/common/ThemeSwitcher/ThemeSwitcher';
 import LanguageSwitcher from 'components/common/LanguageSwitcher/LanguageSwitcher';
-import { useTranslation } from 'react-i18next';
 
 const THEME_STORAGE_KEY = 'theme';
 
-const App = ({ items }) => {
+const App = () => {
+  const contacts = useSelector(state => state.contacts.items);
+
   const [theme, setTheme] = useState(
     () => storage.get(THEME_STORAGE_KEY) ?? themes.light,
   );
@@ -44,11 +46,11 @@ const App = ({ items }) => {
           <div className={s.contantWrap}>
             <h1 className={s.title}>{t('app.title')}</h1>
             <div className={s.wrap}>
-              <ContactForm contacts={items} />
+              <ContactForm />
             </div>
             <h2 className={s.subtitle}>{t('app.subtitle')}</h2>
-            {items.length > 1 && <Filter />}
-            {!items.length && <span>{t('app.message')}</span>}
+            {contacts.length > 1 && <Filter />}
+            {!contacts.length && <span>{t('app.message')}</span>}
             <ContactList />
           </div>
         </Container>
@@ -58,8 +60,4 @@ const App = ({ items }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  items: state.contacts.items,
-});
-
-export default connect(mapStateToProps, null)(App);
+export default App;

@@ -2,9 +2,9 @@ import { useContext, useMemo, useEffect} from 'react';
 import { useSelector, useDispatch} from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { contactsActions } from 'redux/contacts';
-import s from './ContactList.module.css';
-import Paper from 'components/common/Paper/Paper';
 import { ThemeContext, themes } from 'context/themeContext';
+import Paper from 'components/common/Paper/Paper';
+import s from './ContactList.module.css';
 
 const ContactList = () => {
   const contacts = useSelector(state => state.contacts.items); 
